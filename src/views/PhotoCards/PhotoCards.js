@@ -1,16 +1,9 @@
 import { useState, useEffect } from 'react';
-import { NavLink, useParams, useLocation, useNavigate } from 'react-router-dom';
-import moviesApi from '../../services/moviesApi.js';
-import s from './MovieDetailsPage.module.css';
+import roversApi from '../../services/roversApi.js';
+import s from './PhotoCards.module.css';
 import Loader from 'components/Loader/Loader.js';
-import noFilm from '../../icons/film-demo.jpeg';
-import useStyles from '../../services/PaginationStyles.js';
-import { Pagination } from '@material-ui/lab';
 
 export default function MovieDetails({ roverName }) {
-  const classes = useStyles();
-  const navigate = useNavigate();
-  const location = useLocation();
   const [photos, setPhotos] = useState();
   const [sol, setSol] = useState(1000);
   const [maxSol, setMaxSol] = useState();
@@ -20,18 +13,16 @@ export default function MovieDetails({ roverName }) {
 
   useEffect(() => {
     setIsLoading(true);
-    moviesApi.FetchRoverFotos(page, roverName, sol).then(result => {
+    roversApi.FetchRoverFotos(page, roverName, sol).then(result => {
       if (result.photos.length === 0) {
         setError(true);
       } else {
         setError(false);
         setPhotos(result.photos);
-        console.log(result.photos);
       }
     });
-    moviesApi.FetchRoverTotal(roverName).then(result => {
+    roversApi.FetchRoverTotal(roverName).then(result => {
       if (result.photo_manifest) {
-        console.log(result.photo_manifest.max_sol);
         setMaxSol(result.photo_manifest.max_sol);
         setIsLoading(false);
       }
@@ -39,7 +30,7 @@ export default function MovieDetails({ roverName }) {
   }, []);
   useEffect(() => {
     setIsLoading(true);
-    moviesApi.FetchRoverFotos(page, roverName, sol).then(result => {
+    roversApi.FetchRoverFotos(page, roverName, sol).then(result => {
       if (result.photos.length === 0) {
         setError(true);
       } else {
@@ -47,9 +38,8 @@ export default function MovieDetails({ roverName }) {
         setPhotos(result.photos);
       }
     });
-    moviesApi.FetchRoverTotal(roverName).then(result => {
+    roversApi.FetchRoverTotal(roverName).then(result => {
       if (result.photo_manifest) {
-        console.log(result.photo_manifest.max_sol);
         setMaxSol(result.photo_manifest.max_sol);
         setIsLoading(false);
       }

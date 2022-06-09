@@ -25,3 +25,8 @@ outline: none;
     .btn:hover {
         background-color: rgb(255, 62, 62);
     }
+
+    .text{
+        font-size: 30px;
+        color: white;
+    }
